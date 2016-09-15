@@ -5,6 +5,7 @@
  */
 package sms.classifier;
 
+import IndonesianNLP.IndonesianSentenceFormalization;
 import IndonesianNLP.IndonesianStemmer;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,9 +26,13 @@ public class SpamPreprocess {
         try {
             
             Scanner text = new Scanner(file);
+            IndonesianSentenceFormalization formalizer = new IndonesianSentenceFormalization();
+            //formalizer.initStopword();
             
             while(text.hasNextLine()){
                 String line = text.nextLine();
+                line = formalizer.normalizeSentence(line);
+                //line = formalizer.deleteStopword(line);
                 IndonesianStemmer stemmer = new IndonesianStemmer();
                 stemmed = stemmer.stem(line);
                 stemmed = stemmer.stemSentence(stemmed);

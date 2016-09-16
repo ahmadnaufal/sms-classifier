@@ -29,17 +29,18 @@ public class SpamPreprocess {
             
             Scanner text = new Scanner(file);
             IndonesianSentenceFormalization formalizer = new IndonesianSentenceFormalization();
-            formalizer.initStopword();
             IndonesianSentenceDetector detector = new IndonesianSentenceDetector();
             
             while(text.hasNextLine()){
                 String line = text.nextLine();
-                ArrayList<String> sentences = new ArrayList<String>();
-                sentences = detector.splitSentence(line);
-                for (String sentence : sentences){
+                String sentence = line;
+                //ArrayList<String> sentences = new ArrayList<String>();
+                //sentences = detector.splitSentence(line);
+                //for (String sentence : sentences){
                     System.out.println("original: "+sentence);
                     sentence = formalizer.normalizeSentence(sentence);
                     System.out.println("normalized: "+sentence);
+                    formalizer.initStopword();
                     sentence = formalizer.deleteStopword(sentence);
                     System.out.println("no stopword: "+sentence);
                     IndonesianStemmer stemmer = new IndonesianStemmer();
@@ -50,7 +51,7 @@ public class SpamPreprocess {
                     // Debugging print out
                     //System.out.println(line);
                     System.out.println("stemmed: "+stemmed+"\n\n");
-                }
+                //}
                 
             } 
             

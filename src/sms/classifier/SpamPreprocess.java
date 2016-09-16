@@ -5,10 +5,12 @@
  */
 package sms.classifier;
 
+import IndonesianNLP.IndonesianSentenceDetector;
 import IndonesianNLP.IndonesianSentenceFormalization;
 import IndonesianNLP.IndonesianStemmer;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,20 +29,29 @@ public class SpamPreprocess {
             
             Scanner text = new Scanner(file);
             IndonesianSentenceFormalization formalizer = new IndonesianSentenceFormalization();
-            //formalizer.initStopword();
+            formalizer.initStopword();
+            IndonesianSentenceDetector detector = new IndonesianSentenceDetector();
             
             while(text.hasNextLine()){
                 String line = text.nextLine();
-                line = formalizer.normalizeSentence(line);
-                //line = formalizer.deleteStopword(line);
-                IndonesianStemmer stemmer = new IndonesianStemmer();
-                stemmed = stemmer.stem(line);
-                stemmed = stemmer.stemSentence(stemmed);
-                stemmed = stemmer.stemRepeatedWord(stemmed);
+                ArrayList<String> sentences = new ArrayList<String>();
+                sentences = detector.splitSentence(line);
+                for (String sentence : sentences){
+                    System.out.println("original: "+sentence);
+                    line = formalizer.normalizeSentence(sentence);
+                    System.out.println("normalized: "+sentence);
+                    line = formalizer.deleteStopword(sentence);
+                    System.out.println("no stopword: "+sentence);
+                    IndonesianStemmer stemmer = new IndonesianStemmer();
+                    stemmed = stemmer.stem(line);
+                    stemmed = stemmer.stemSentence(stemmed);
+                    stemmed = stemmer.stemRepeatedWord(stemmed);
+
+                    // Debugging print out
+                    //System.out.println(line);
+                    System.out.println("stemmed: "+stemmed+"\n\n");
+                }
                 
-                // Debugging print out
-                System.out.println(line);
-                System.out.println(stemmed);
             } 
             
         } catch (FileNotFoundException ex) {

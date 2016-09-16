@@ -38,12 +38,12 @@ public class SpamPreprocess {
                 sentences = detector.splitSentence(line);
                 for (String sentence : sentences){
                     System.out.println("original: "+sentence);
-                    line = formalizer.normalizeSentence(sentence);
+                    sentence = formalizer.normalizeSentence(sentence);
                     System.out.println("normalized: "+sentence);
-                    line = formalizer.deleteStopword(sentence);
+                    sentence = formalizer.deleteStopword(sentence);
                     System.out.println("no stopword: "+sentence);
                     IndonesianStemmer stemmer = new IndonesianStemmer();
-                    stemmed = stemmer.stem(line);
+                    stemmed = stemmer.stem(sentence);
                     stemmed = stemmer.stemSentence(stemmed);
                     stemmed = stemmer.stemRepeatedWord(stemmed);
 

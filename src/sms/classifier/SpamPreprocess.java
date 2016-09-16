@@ -33,6 +33,7 @@ public class SpamPreprocess {
             
             while(text.hasNextLine()){
                 String line = text.nextLine();
+                line.replace('.',' ');
                 String sentence = line;
                 //ArrayList<String> sentences = new ArrayList<String>();
                 //sentences = detector.splitSentence(line);

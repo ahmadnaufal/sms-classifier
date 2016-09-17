@@ -37,7 +37,7 @@ public class StringToWordProcessor {
         for (String line : l) {
             String words[] = line.split(" ");
             for (String word : words) {
-                if (word.length() > 1 && !totalWords.containsKey(word)) {
+                if (word.length() > 1 && !word.matches("[0-9]+") && !totalWords.containsKey(word)) {
                     totalWords.put(word, curIdx);
                     curIdx++;
                 }

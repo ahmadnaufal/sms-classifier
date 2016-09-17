@@ -42,7 +42,6 @@ public class SpamPreprocess {
                 //for (String sentence : sentences){
                     System.out.println("original: "+sentence);
                     sentence = formalizer.normalizeSentence(sentence);
-                    sentence = formalizer.normalizeSentence(sentence);
                     System.out.println("normalized: "+sentence);
                     formalizer.initStopword();
                     sentence = formalizer.deleteStopword(sentence);

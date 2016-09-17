@@ -38,15 +38,6 @@ public class SmsClassifier {
         List<String> spamDataset = spamPreprocess.spamStemming(fSpam);
         List<String> notSpamDataset = spamPreprocess.spamStemming(fNotSpam);
         
-        try {
-            PrintWriter pw = new PrintWriter(new FileOutputStream("dataset.arff", true));
-            
-            pw.println("@relation spamdataset");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SmsClassifier.class.getName()).log(Level.SEVERE, null, ex);
-            return;
-        }
-        
         StringToWordProcessor st = new StringToWordProcessor();
         Map<String, Integer> spamWords = st.stringAttribute(spamDataset);
         Map<String, Integer> totalDataset = MapUtil.sortByValue(st.stringAttribute(notSpamDataset));
@@ -74,7 +65,6 @@ public class SmsClassifier {
                         wordCount[totalDataset.get(word)]++;
                     }
                 }
-                System.out.println(Arrays.toString(wordCount));
                 for(int val : wordCount) {
                     pw.print(val + ",");
                 }
@@ -99,7 +89,6 @@ public class SmsClassifier {
         } catch (FileNotFoundException ex) {
             System.err.println(ex);
             Logger.getLogger(SmsClassifier.class.getName()).log(Level.SEVERE, null, ex);
-            return;
         }
 
         // preprocessing(file);

@@ -17,30 +17,34 @@ import java.util.Map;
 public class StringToWordProcessor {
     
     private Map<String, Integer> totalWords;
-    private List<String> processedSentences;
+    private int curIdx;
 
     /**
      *
-     * @param l
      */
-    public StringToWordProcessor(List<String> l) {
+    public StringToWordProcessor() {
         totalWords = new HashMap<>();
-        processedSentences = l;
+        curIdx = 0;
     }
     
-    public List<String> stringAttribute() {
-        List<String> finalWords = new ArrayList<>();
+    /**
+     * 
+     * @param l
+     * @return 
+     */
+    public Map<String, Integer> stringAttribute(List<String> l) {
         
-        for (String line : processedSentences) {
+        for (String line : l) {
             String words[] = line.split(" ");
             for (String word : words) {
-                if (word.length() > 1 && !finalWords.contains(word)) {
-                    finalWords.add(word);
+                if (word.length() > 1 && !totalWords.containsKey(word)) {
+                    totalWords.put(word, curIdx);
+                    curIdx++;
                 }
             }
         }
         
-        return finalWords;
+        return totalWords;
     }
     
 }

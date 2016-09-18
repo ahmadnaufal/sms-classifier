@@ -34,7 +34,7 @@ public class SpamPreprocess {
             
             while(text.hasNextLine()){
                 String line = text.nextLine();
-                line = line.replace('.',' ').toLowerCase();
+                line = line.toLowerCase();
                 String sentence = line;
                 String stemmed;
                 //ArrayList<String> sentences = new ArrayList<String>();
